@@ -4,5 +4,8 @@
     <string name="app_name">TesouroNacional</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="ano">Ano</string>
+    <string name="TaxaRoi">Taxa ROI</string>
+    <string name="Min_Compra">Min. Compra</string>
 
 </resources>
