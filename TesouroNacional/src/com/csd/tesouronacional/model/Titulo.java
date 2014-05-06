@@ -1,5 +1,7 @@
 package com.csd.tesouronacional.model;
 
+import android.annotation.SuppressLint;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -29,6 +31,7 @@ public class Titulo {
 		this.numero = numero;
 	}
 	
+	@SuppressLint("SimpleDateFormat")
 	public String getFormattedVencimento(){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		return df.format(getVencimento());
@@ -40,6 +43,18 @@ public class Titulo {
 	public void setVencimento(Date vencimento) {
 		this.vencimento = vencimento;
 	}
+	
+	@SuppressLint("SimpleDateFormat")
+	public void setVencimento(String strVencimento) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		
+		try {
+			vencimento = df.parse(strVencimento);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public double getTaxaCompra() {
 		return taxaCompra;
 	}

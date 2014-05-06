@@ -1,10 +1,14 @@
 package com.csd.tesouronacional.database;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.csd.tesouronacional.database.TituloDBHelper.TituloEntry;
 import com.csd.tesouronacional.model.Titulo;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DataLayer {
@@ -18,7 +22,7 @@ public class DataLayer {
 		helper = new TituloDBHelper (context);
 	}
 	
-	public void insertTitulo(Titulo titulo){
+	public long insertTitulo(Titulo titulo){
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
@@ -29,14 +33,41 @@ public class DataLayer {
         values.put(TituloEntry.COLUMN_NAME_TX_COMPRA, titulo.getTaxaCompra());
         values.put(TituloEntry.COLUMN_NAME_PRECO_COMPRA, titulo.getPrecoCompra());
         
-        long newRowId = db.insert(TituloEntry.TABLE_NAME, "", values);
-    	System.out.println("New row inserted id: " + newRowId);
+        return db.insert(TituloEntry.TABLE_NAME, "", values);
     }
 	
-	public Titulo readTitulo (){
+	public List<Titulo> readTitulos (){
+		ArrayList<Titulo> list = new ArrayList<Titulo>();
 		SQLiteDatabase db = helper.getReadableDatabase();
 		
-		//String [] 
-		return null;
+		String [] columns = {
+			TituloEntry._ID,TituloEntry.COLUMN_NAME_ID, TituloEntry.COLUMN_NAME_LETRA,TituloEntry.COLUMN_NAME_NUMERO,
+			TituloEntry.COLUMN_NAME_VENCIMENTO,TituloEntry.COLUMN_NAME_TX_COMPRA,TituloEntry.COLUMN_NAME_TX_COMPRA
+				
+		};
+		
+		Cursor c = db.query(
+				TituloEntry.TABLE_NAME,
+				columns,
+				null,
+				null,
+				null,
+				null,
+				null);
+		
+		while (c.moveToNext()){
+			Titulo titulo = new Titulo();
+			
+			titulo.setId(c.getLong(1));
+			titulo.setLetra(c.getString(2));
+			titulo.setNumero(c.getString(3));
+			titulo.setVencimento(c.getString(4));
+			titulo.setTaxaCompra(c.getDouble(5));
+			titulo.setPrecoCompra(c.getDouble(6));
+			
+			list.add(titulo);
+		}
+
+		return list;
 	}
 }

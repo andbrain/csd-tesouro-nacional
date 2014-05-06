@@ -1,15 +1,11 @@
 package com.csd.tesouronacional;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+
 import com.csd.tesouronacional.database.DataLayer;
 import com.csd.tesouronacional.database.TituloDBHelper;
-import com.csd.tesouronacional.database.TituloDBHelper.TituloEntry;
-import com.csd.tesouronacional.model.Titulo;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.view.Menu;
 
 public class TesouroNacionalActivity extends Activity {
 	public static TituloDBHelper helper;
@@ -22,12 +18,6 @@ public class TesouroNacionalActivity extends Activity {
         setContentView(R.layout.activity_tesouro_nacional);
         
         DataLayer.instance.init(getApplicationContext());
-        
-        Titulo titulo = new Titulo();
-        titulo.setId(2);
-        titulo.setLetra("PO");
-        
-        DataLayer.instance.insertTitulo(titulo);
     }
 
 
