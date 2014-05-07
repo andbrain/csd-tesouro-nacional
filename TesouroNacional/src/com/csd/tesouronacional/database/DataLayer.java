@@ -20,33 +20,6 @@ public class DataLayer {
 	
 	public void init (Context context){
 		helper = new TituloDBHelper (context);
-		
-		Titulo tituloA = new Titulo();
-		tituloA.setId(1);
-		tituloA.setLetra("NTB");
-		tituloA.setNumero("2014");
-		tituloA.setVencimento("2014-01-01 00:00");
-		tituloA.setTaxaCompra(6.38);
-		
-		Titulo tituloB = new Titulo();
-		tituloB.setId(2);
-		tituloB.setLetra("NTB");
-		tituloB.setNumero("2015");
-		tituloB.setVencimento("2015-01-01 00:00");
-		tituloB.setTaxaCompra(6.90);
-		
-		Titulo tituloC = new Titulo();
-		tituloC.setId(3);
-		tituloC.setLetra("NTB");
-		tituloC.setNumero("2016");
-		tituloC.setVencimento("2016-01-01 00:00");
-		tituloC.setTaxaCompra(7.0);
-		
-		insertTitulo(tituloA);
-		insertTitulo(tituloB);
-		insertTitulo(tituloC);
-		
-		readTitulos();
 	}
 	
 	public long insertTitulo(Titulo titulo){
@@ -97,5 +70,15 @@ public class DataLayer {
 		}
 
 		return list;
+	}
+	
+	public void createDatabase(){
+		SQLiteDatabase db = helper.getWritableDatabase();
+		db.execSQL(TituloDBHelper.SQL_CREATE_ENTRIES);
+	}
+	
+	public void dropDatabase(){
+		SQLiteDatabase db = helper.getWritableDatabase();
+		db.execSQL(TituloDBHelper.SQL_DELETE_TITULOS);
 	}
 }

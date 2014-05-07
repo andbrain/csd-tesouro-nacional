@@ -21,7 +21,7 @@ public class TituloDBHelper extends SQLiteOpenHelper {
 	private static final String REAL_TYPE = " REAL";
 	private static final String COMMA_SEP = ",";
 	
-	private static final String SQL_CREATE_ENTRIES =
+	public static final String SQL_CREATE_ENTRIES =
 	    "CREATE TABLE " + TituloEntry.TABLE_NAME + " (" +
 	    		TituloEntry._ID + " INTEGER PRIMARY KEY," +
 	    		TituloEntry.COLUMN_NAME_ID + TEXT_TYPE + COMMA_SEP +
@@ -35,6 +35,9 @@ public class TituloDBHelper extends SQLiteOpenHelper {
 	
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "titulos.db";
+	
+	public static final String SQL_DELETE_TITULOS =
+		    "DROP TABLE IF EXISTS " + TituloEntry.TABLE_NAME;
 	
 	public TituloDBHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);

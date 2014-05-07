@@ -18,6 +18,8 @@ public class TesouroNacionalActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        System.out.println("Activity Created!!");
         setContentView(R.layout.activity_tesouro_nacional);
         
         DataLayer.instance.init(getApplicationContext());
@@ -26,8 +28,7 @@ public class TesouroNacionalActivity extends Activity {
         taxaRoi = (EditText) findViewById(R.id.minRoi);
         minCompra = (EditText) findViewById(R.id.minCompra);
     }
-
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
