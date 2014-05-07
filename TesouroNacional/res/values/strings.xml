@@ -7,5 +7,20 @@
     <string name="ano">Ano</string>
     <string name="TaxaRoi">Taxa ROI</string>
     <string name="Min_Compra">Min. Compra</string>
+    
+    <string name="titles_filter_prompt">Pesquisa de Títulos</string>
+ 
+    <string-array name="years_array">
+        <item>2014</item>
+        <item>2015</item>
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+    </string-array>
+        <string name="pesquisar">Pesquisar</string>
 
 </resources>
