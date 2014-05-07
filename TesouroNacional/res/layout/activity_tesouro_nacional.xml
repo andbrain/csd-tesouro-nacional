@@ -73,14 +73,14 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinner1"
+        android:layout_alignLeft="@+id/ano"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
         android:text="@string/ano"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/ano"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
@@ -92,14 +92,14 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinner1"
-        android:layout_alignRight="@+id/spinner1"
-        android:layout_below="@+id/spinner1"
+        android:layout_alignLeft="@+id/ano"
+        android:layout_alignRight="@+id/ano"
+        android:layout_below="@+id/ano"
         android:text="@string/TaxaRoi"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/minRoi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
@@ -115,15 +115,15 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_alignRight="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/minRoi"
+        android:layout_alignRight="@+id/minRoi"
+        android:layout_below="@+id/minRoi"
         android:layout_marginTop="17dp"
         android:text="@string/Min_Compra"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/EditText01"
+        android:id="@+id/minCompra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView3"
@@ -136,9 +136,9 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText01"
-        android:layout_alignRight="@+id/EditText01"
-        android:layout_below="@+id/EditText01"
+        android:layout_alignLeft="@+id/minCompra"
+        android:layout_alignRight="@+id/minCompra"
+        android:layout_below="@+id/minCompra"
         android:layout_marginTop="34dp"
         android:text="@string/pesquisar" />
 

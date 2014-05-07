@@ -3,14 +3,17 @@ package com.csd.tesouronacional;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.csd.tesouronacional.database.DataLayer;
 import com.csd.tesouronacional.database.TituloDBHelper;
 
 public class TesouroNacionalActivity extends Activity {
 	public static TituloDBHelper helper;
-	
-	
+	private Spinner yearSpinner;
+	private EditText taxaRoi;
+	private EditText minCompra;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,10 @@ public class TesouroNacionalActivity extends Activity {
         setContentView(R.layout.activity_tesouro_nacional);
         
         DataLayer.instance.init(getApplicationContext());
+
+        yearSpinner = (Spinner) findViewById(R.id.ano);
+        taxaRoi = (EditText) findViewById(R.id.minRoi);
+        minCompra = (EditText) findViewById(R.id.minCompra);
     }
 
 
