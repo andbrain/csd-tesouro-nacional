@@ -73,21 +73,13 @@ public class DataLayer {
 				
 		};
 	
+		String groupBy = TituloEntry.COLUMN_NAME_ID;	
 		String filter = TituloEntry.COLUMN_NAME_ID + ">" + Integer.toString(0);
 		String orderBy =  TituloEntry.COLUMN_NAME_TX_COMPRA + " DESC";
-		Cursor c = db.query(TituloEntry.TABLE_NAME, columns,
-		        filter, null, null, null, orderBy);
+		Cursor c = db.query(false, TituloEntry.TABLE_NAME, columns,
+		        null, null, groupBy, filter, orderBy, null);
 		
-		/*Cursor c = db.query(
-				TituloEntry.TABLE_NAME,
-				columns,
-				null,
-				null,
-				TituloEntry.COLUMN_NAME_ID + " > 0",
-				null, 
-				null);*/
-		
-		while (c.moveToNext()){
+		while (c.moveToNext()){		
 			Titulo titulo = new Titulo();
 			
 			titulo.setId(c.getLong(1));
@@ -101,7 +93,7 @@ public class DataLayer {
 			System.out.println("Vencimento::"+titulo.getVencimento());
 			System.out.println("Taxa::"+titulo.getTaxaCompra());
 		
-			//list.add(titulo);
+			list.add(titulo);
 		}
 
 		return list;
