@@ -9,8 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
-
 import com.csd.tesouronacional.model.Titulo;
 
 public class TesouroParser {
@@ -26,35 +24,48 @@ public class TesouroParser {
         List<Titulo> titulos = new ArrayList<Titulo>();
         int startTitulo = 0;
         int endTitulo;
-        for (int i = 0; i < 10; i++) {
-            Titulo t = new Titulo();
+        for (int i = 0; i < 24; i++) {
+            try {
+                Titulo t = new Titulo();
 
-            String tituloKey = "<TD  class=\"listing0\" align=left>";
-            startTitulo = content.indexOf(tituloKey, startTitulo);
-            endTitulo = content.indexOf("</TD>", startTitulo);
-            t.setLetra(content.substring(startTitulo + tituloKey.length(), endTitulo));
+                String tituloKey = "<TD  class=\"listing0\" align=left>";
+                startTitulo = content.indexOf(tituloKey, startTitulo);
+                endTitulo = content.indexOf("</TD>", startTitulo);
+                t.setLetra(content.substring(startTitulo + tituloKey.length(), endTitulo));
 
-            String vencimentoKey = "<TD  class=\"listing\" align=right>";
-            int startVencimento = content.indexOf(vencimentoKey, endTitulo);
-            int endVencimento = content.indexOf("</TD>", startVencimento);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            t.setVencimento(sdf.parse(content.substring(startVencimento + vencimentoKey.length(), endVencimento)));
+                String vencimentoKey = "<TD";
+                int startVencimento = content.indexOf(vencimentoKey, endTitulo);
+                int endVencimento = content.indexOf("</TD>", startVencimento);
+                startVencimento = content.indexOf('>', startVencimento) + 1;
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                t.setVencimento(sdf.parse(content.substring(startVencimento, endVencimento)));
 
-            String taxaKey = "<TD  class=\"listing\" align=right>";
-            int startTaxa = content.indexOf(taxaKey, endVencimento);
-            int endTaxa = content.indexOf("</TD>", startTaxa);
-            String strTaxa = content.substring(startTaxa + taxaKey.length(), endTaxa - 1);
-            strTaxa = strTaxa.replace(',', '.');
-            t.setTaxaCompra(Double.parseDouble(strTaxa));
+                String taxaCompraKey = "<TD";
+                int startTaxaCompra = content.indexOf(taxaCompraKey, endVencimento);
+                int endTaxaCompra = content.indexOf("</TD>", startTaxaCompra);
+                startTaxaCompra = content.indexOf('>', startTaxaCompra) + 1;
+                String strTaxaCompra = content.substring(startTaxaCompra, endTaxaCompra - 1);
+                strTaxaCompra = strTaxaCompra.replace(',', '.');
+                t.setTaxaCompra(Double.parseDouble(strTaxaCompra));
 
-            String valorKey = "<TD class=\"listing\" align=right>";
-            int startValor = content.indexOf(valorKey, endTaxa);
-            int endValor = content.indexOf("</TD>", startValor);
-            String strValor = content.substring(startValor + 3 + valorKey.length(), endValor);
-            strValor = strValor.replace(".", "").replace(',', '.');
-            t.setPrecoCompra(Double.parseDouble(strValor));
+                String taxaVendaKey = "<TD";
+                int startTaxaVenda = content.indexOf(taxaVendaKey, endTaxaCompra);
+                int endTaxaVenda = content.indexOf("</TD>", startTaxaVenda);
+                startTaxaVenda = content.indexOf('>', startTaxaVenda) + 1;
 
-            Log.d("tesouro", t.toString());
+                String valorCompraKey = "<TD";
+                int startValorCompra = content.indexOf(valorCompraKey, endTaxaVenda);
+                int endValorCompra = content.indexOf("</TD>", startValorCompra);
+                startValorCompra = content.indexOf('>', startValorCompra) + 1;
+                String strValorCompra = content.substring(startValorCompra + 3, endValorCompra);
+                strValorCompra = strValorCompra.replace(".", "").replace(',', '.');
+                t.setPrecoCompra(Double.parseDouble(strValorCompra));
+
+                titulos.add(t);
+            } catch (NumberFormatException e) {
+                startTitulo++;
+                continue;
+            }
             startTitulo++;
         }
         return titulos;
