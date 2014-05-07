@@ -52,7 +52,7 @@ public class DataLayer {
 				null,
 				null,
 				null,
-				null,
+				TituloEntry.COLUMN_NAME_TX_COMPRA,
 				null);
 		
 		while (c.moveToNext()){
