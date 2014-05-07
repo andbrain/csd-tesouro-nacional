@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.csd.tesouronacional.database.TituloDBHelper.TituloEntry;
 import com.csd.tesouronacional.model.Titulo;
@@ -17,25 +16,30 @@ public class DataLayer {
 	public static final DataLayer instance = new DataLayer();
 
 	private TituloDBHelper helper;
-	
-	private DataLayer(){}
-	
-	public void init (Context context){
-		helper = new TituloDBHelper (context);
-		List<Titulo> list = null;
 
-		try {
-			list = TesouroParser.parseTesouroURL();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	private DataLayer() {
+	}
 
-		
-		for (Titulo titulo : list) {
-			System.out.println(titulo.getLetra());
-			insertTitulo(titulo);
-		}
+	public void init(Context context) {
+		helper = new TituloDBHelper(context);
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				List<Titulo> list = null;
+				try {
+					list = TesouroParser.parseTesouroURL();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				for (Titulo titulo : list) {
+					insertTitulo(titulo);
+				}
+
+			}
+		}).start();
 
 		readTitulos();
 	}
@@ -93,13 +97,13 @@ public class DataLayer {
 
 		return list;
 	}
-	
-	public void createDatabase(){
+
+	public void createDatabase() {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		db.execSQL(TituloDBHelper.SQL_CREATE_ENTRIES);
 	}
-	
-	public void dropDatabase(){
+
+	public void dropDatabase() {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		db.execSQL(TituloDBHelper.SQL_DELETE_TITULOS);
 	}
