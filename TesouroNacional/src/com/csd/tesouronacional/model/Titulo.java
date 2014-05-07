@@ -34,7 +34,7 @@ public class Titulo {
 	
 	@SuppressLint("SimpleDateFormat")
 	public String getFormattedVencimento(){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");  
 		return df.format(getVencimento());
 	}
 	

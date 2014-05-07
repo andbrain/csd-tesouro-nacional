@@ -20,6 +20,33 @@ public class DataLayer {
 	
 	public void init (Context context){
 		helper = new TituloDBHelper (context);
+		
+		Titulo tituloA = new Titulo();
+		tituloA.setId(1);
+		tituloA.setLetra("NTB");
+		tituloA.setNumero("2014");
+		tituloA.setVencimento("2014-01-01 00:00");
+		tituloA.setTaxaCompra(6.38);
+		
+		Titulo tituloB = new Titulo();
+		tituloB.setId(2);
+		tituloB.setLetra("NTB");
+		tituloB.setNumero("2015");
+		tituloB.setVencimento("2015-01-01 00:00");
+		tituloB.setTaxaCompra(6.90);
+		
+		Titulo tituloC = new Titulo();
+		tituloC.setId(3);
+		tituloC.setLetra("NTB");
+		tituloC.setNumero("2016");
+		tituloC.setVencimento("2016-01-01 00:00");
+		tituloC.setTaxaCompra(7.0);
+		
+		insertTitulo(tituloA);
+		insertTitulo(tituloB);
+		insertTitulo(tituloC);
+		
+		readTitulos();
 	}
 	
 	public long insertTitulo(Titulo titulo){
@@ -45,15 +72,20 @@ public class DataLayer {
 			TituloEntry.COLUMN_NAME_VENCIMENTO,TituloEntry.COLUMN_NAME_TX_COMPRA,TituloEntry.COLUMN_NAME_TX_COMPRA
 				
 		};
+	
+		String filter = TituloEntry.COLUMN_NAME_ID + ">" + Integer.toString(0);
+		String orderBy =  TituloEntry.COLUMN_NAME_TX_COMPRA + " DESC";
+		Cursor c = db.query(TituloEntry.TABLE_NAME, columns,
+		        filter, null, null, null, orderBy);
 		
-		Cursor c = db.query(
+		/*Cursor c = db.query(
 				TituloEntry.TABLE_NAME,
 				columns,
 				null,
 				null,
-				null,
-				TituloEntry.COLUMN_NAME_TX_COMPRA,
-				null);
+				TituloEntry.COLUMN_NAME_ID + " > 0",
+				null, 
+				null);*/
 		
 		while (c.moveToNext()){
 			Titulo titulo = new Titulo();
@@ -65,7 +97,11 @@ public class DataLayer {
 			titulo.setTaxaCompra(c.getDouble(5));
 			titulo.setPrecoCompra(c.getDouble(6));
 			
-			list.add(titulo);
+			System.out.println("Título::"+titulo.getLetra());
+			System.out.println("Vencimento::"+titulo.getVencimento());
+			System.out.println("Taxa::"+titulo.getTaxaCompra());
+		
+			//list.add(titulo);
 		}
 
 		return list;
