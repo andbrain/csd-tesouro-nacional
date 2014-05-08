@@ -1,5 +1,7 @@
 package com.csd.tesouronacional;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +10,8 @@ import android.widget.Spinner;
 
 import com.csd.tesouronacional.database.DataLayer;
 import com.csd.tesouronacional.database.TituloDBHelper;
+import com.csd.tesouronacional.model.Titulo;
+import com.csd.tesouronacional.parser.TesouroParser;
 
 public class TesouroNacionalActivity extends Activity {
 	public static TituloDBHelper helper;
@@ -23,6 +27,20 @@ public class TesouroNacionalActivity extends Activity {
         setContentView(R.layout.activity_tesouro_nacional);
         
         DataLayer.instance.init(getApplicationContext());
+        
+		List<Titulo> list = null;
+
+		try {
+			list = TesouroParser.parseTesouroURL();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for (Titulo titulo : list) {
+			System.out.println(titulo.getLetra());
+			//DataLayer.instance.insertTitulo(titulo);
+		}
 
         yearSpinner = (Spinner) findViewById(R.id.ano);
         taxaRoi = (EditText) findViewById(R.id.minRoi);

@@ -16,32 +16,11 @@ public class DataLayer {
 	public static final DataLayer instance = new DataLayer();
 
 	private TituloDBHelper helper;
-
-	private DataLayer() {
-	}
-
-	public void init(Context context) {
-		helper = new TituloDBHelper(context);
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				List<Titulo> list = null;
-				try {
-					list = TesouroParser.parseTesouroURL();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-				for (Titulo titulo : list) {
-					insertTitulo(titulo);
-				}
-
-			}
-		}).start();
-
-		readTitulos();
+	
+	private DataLayer(){}
+	
+	public void init (Context context){
+		helper = new TituloDBHelper (context);	
 	}
 
 	public long insertTitulo(Titulo titulo) {
