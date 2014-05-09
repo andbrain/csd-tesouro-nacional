@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.csd.tesouronacional.database.TituloDBHelper.TituloEntry;
 import com.csd.tesouronacional.model.Titulo;
-import com.csd.tesouronacional.parser.TesouroParser;
 
 public class DataLayer {
 	public static final DataLayer instance = new DataLayer();
